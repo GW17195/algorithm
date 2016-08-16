@@ -1,7 +1,7 @@
 #include <iostream>
-#define MAX_NUM_OF_KEY 8//±íÊ¾Ò»¸öÊı×î¶àÈİÄÉµÄÊı×ÖµÄÎ»Êı£¬12345678£¬ÊÇ8Î»Êı
-#define RADIX 10  //±íÊ¾»ùÊıµÄ¸öÊı£¬ÈçÊ®½øÖÆ»ùÊıÓĞ10¸ö0µ½9
-#define MAX_SPACE 1000//±íÊ¾×î´ó¿Õ¼ä£¬×î¶àÓĞ¼¸¸öÊı²Î¼ÓÅÅĞò
+#define MAX_NUM_OF_KEY 8//è¡¨ç¤ºä¸€ä¸ªæ•°æœ€å¤šå®¹çº³çš„æ•°å­—çš„ä½æ•°ï¼Œ12345678ï¼Œæ˜¯8ä½æ•°
+#define RADIX 10  //è¡¨ç¤ºåŸºæ•°çš„ä¸ªæ•°ï¼Œå¦‚åè¿›åˆ¶åŸºæ•°æœ‰10ä¸ª0åˆ°9
+#define MAX_SPACE 1000//è¡¨ç¤ºæœ€å¤§ç©ºé—´ï¼Œæœ€å¤šæœ‰å‡ ä¸ªæ•°å‚åŠ æ’åº
 using namespace std;
 typedef int ArrType[RADIX];
 typedef char KeysType;
@@ -11,9 +11,9 @@ typedef struct SLCell{
     int next;
 }SLCell;
 typedef struct SLList{
-    int keyNum;//±íÊ¾Ã¿¸öÊı×Ö×î´óÓĞ¶àÉÙÎ»_ _ _3
-    int recNum;//±íÊ¾±íÖĞÓĞ¼¸¸öÊı     j¼ÆÊı
-    SLCell r[MAX_SPACE];//r[0]ÎªÍ·
+    int keyNum;//è¡¨ç¤ºæ¯ä¸ªæ•°å­—æœ€å¤§æœ‰å¤šå°‘ä½_ _ _3
+    int recNum;//è¡¨ç¤ºè¡¨ä¸­æœ‰å‡ ä¸ªæ•°     jè®¡æ•°
+    SLCell r[MAX_SPACE];//r[0]ä¸ºå¤´
 }SLList;
 void CreateSLList(SLList *L)
 {
@@ -24,24 +24,24 @@ void CreateSLList(SLList *L)
             (*L).r[indexi].keys[indexj]='0';
         }
     }
-    cout<<"ÇëÊäÈëÃ¿¸öÊı×î´óµÄÎ»Êı\n";
+    cout<<"è¯·è¾“å…¥æ¯ä¸ªæ•°æœ€å¤§çš„ä½æ•°\n";
     cin>>(*L).keyNum;
     getchar();
     //int count_num=0;
-    cout<<"ÄãÒªÊäÈë¼¸¸öÊı?\n";
+    cout<<"ä½ è¦è¾“å…¥å‡ ä¸ªæ•°?\n";
     cin>>(*L).recNum;
     getchar();
-    cout<<"ÇëÊäÈëÊı:";
+    cout<<"è¯·è¾“å…¥æ•°:";
     cout<<"\n";
-    (*L).r[0].next=1;////////////////////////////////Í·Ö¸Õë
+    (*L).r[0].next=1;////////////////////////////////å¤´æŒ‡é’ˆ
     int count_num=1;
     for(int index=1;index<=(*L).recNum;index++)
     {
         char charTmp;
 
-        cout<<"µÚ"<<count_num++<<"¸öÊı: ";
+        cout<<"ç¬¬"<<count_num++<<"ä¸ªæ•°: ";
         int arrTmp[RADIX];
-        int arrTmpCount=0;//ÏÂ±ê
+        int arrTmpCount=0;//ä¸‹æ ‡
         for(;(charTmp=getchar())!='\n';arrTmpCount++)
         {
             arrTmp[arrTmpCount]=charTmp;
@@ -87,13 +87,13 @@ void Distribute(SLCell L[],int indexKey,ArrType f,ArrType e)
 {
     int p;
     for(int i=0;i<RADIX;i++){
-        f[i]=0;           //int ÀàĞÍµÄÖ¸Õë
+        f[i]=0;           //int ç±»å‹çš„æŒ‡é’ˆ
         e[i]=0;
     }
-    int cur=L[0].next;//ÊÇµ±Ç°´¦ÀíµÄÊı¾İµÄÖ¸Õë
+    int cur=L[0].next;//æ˜¯å½“å‰å¤„ç†çš„æ•°æ®çš„æŒ‡é’ˆ
 
     while(cur!=0){
-        p=L[cur].keys[indexKey]-'0';//curÊÇLµÄ   PÊÇf eµÄ
+        p=L[cur].keys[indexKey]-'0';//curæ˜¯Lçš„   Pæ˜¯f eçš„
         if(f[p]==0){
             f[p]=cur;
         }
@@ -119,7 +119,7 @@ void Collect1(SLCell L[],int indexKey,ArrType f,ArrType e)
             break;
         }
         if(L[0].next==0){
-            L[0].next=indexi;
+            L[0].next=indexi;///////////////////////////////////æœ‰é”™æ‰€ä»¥ä¸è¡Œ
         }
         else{
             L[e[indexj]].next=f[indexi];
