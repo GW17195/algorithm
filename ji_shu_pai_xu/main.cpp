@@ -63,10 +63,8 @@ void print(SLList L)
 {
     cout<<"\n";
     char tmp;
-    for(int indexi=1;indexi<=L.recNum;indexi++)
-    {
-        for(int indexj=0;indexj<L.keyNum;indexj++)
-        {
+    for(int indexi=1;indexi<=L.recNum;indexi++){
+        for(int indexj=0;indexj<L.keyNum;indexj++){
            if((tmp=L.r[indexi].keys[RADIX-L.keyNum+indexj])!='0')
             cout<< tmp;
         }
@@ -77,10 +75,8 @@ void print_next(SLList L)
 {
     char tmp;
     int cur=0;
-    for(cur=L.r[cur].next;cur!=0;cur=L.r[cur].next)
-    {
-        for(int indexj=0;indexj<L.keyNum;indexj++)
-        {
+    for(cur=L.r[cur].next;cur!=0;cur=L.r[cur].next){
+        for(int indexj=0;indexj<L.keyNum;indexj++){
            if((tmp=L.r[cur].keys[RADIX-L.keyNum+indexj])!='0')
             cout<< tmp;
         }
@@ -90,18 +86,15 @@ void print_next(SLList L)
 void Distribute(SLCell L[],int indexKey,ArrType f,ArrType e)
 {
     int p;
-    for(int i=0;i<RADIX;i++)
-    {
+    for(int i=0;i<RADIX;i++){
         f[i]=0;           //int 类型的指针
         e[i]=0;
     }
     int cur=L[0].next;//是当前处理的数据的指针
 
-    while(cur!=0)
-    {
+    while(cur!=0){
         p=L[cur].keys[indexKey]-'0';//cur是L的   P是f e的
-        if(f[p]==0)
-        {
+        if(f[p]==0){
             f[p]=cur;
         }
         else{
@@ -117,45 +110,29 @@ void Collect1(SLCell L[],int indexKey,ArrType f,ArrType e)
     int indexj=0;
     int indexi=0;
     L[0].next=0;
-
-    while(1)
-    {
-        while(f[indexi]==0&&indexi<RADIX)
-        {
+    while(1){
+        while(f[indexi]==0&&indexi<RADIX){
             indexi++;//find first index of f arry who's member is not zero
         }
-
-        if(indexi>=RADIX)
-        {
+        if(indexi>=RADIX){
             L[e[indexj]].next=0;
             break;
         }
-
-        if(L[0].next==0)
-        {
+        if(L[0].next==0){
             L[0].next=indexi;
         }
         else{
-
             L[e[indexj]].next=f[indexi];
         }
-
-
-
         indexj=indexi+1;
-        while(f[indexj]==0&&indexj<RADIX)
-        {
+        while(f[indexj]==0&&indexj<RADIX){
             indexj++;
         }
-
-        if(indexj>=RADIX)
-        {
+        if(indexj>=RADIX){
             L[e[indexi]].next=0;
             break;
         }
-
         L[e[indexi]].next=f[indexj];
-
         indexi=indexj+1;
     }
 }
@@ -164,45 +141,29 @@ void Collect(SLCell L[],int indexKey,ArrType f,ArrType e)
     int indexj=0;
     int indexi=0;
     L[0].next=0;
-
-    while(1)
-    {
-        while(f[indexi]==0&&indexi<RADIX)
-        {
+    while(1){
+        while(f[indexi]==0&&indexi<RADIX){
             indexi++;//find first index of f arry who's member is not zero
         }
-
-        if(indexi>=RADIX)
-        {
+        if(indexi>=RADIX){
             L[e[indexj]].next=0;
             break;
         }
-
-        if(L[0].next==0)
-        {
+        if(L[0].next==0){
             L[0].next=f[indexi];
         }
         else{
-
             L[e[indexj]].next=f[indexi];
         }
-
-
-
         indexj=indexi+1;
-        while(f[indexj]==0&&indexj<RADIX)
-        {
+        while(f[indexj]==0&&indexj<RADIX){
             indexj++;
         }
-
-        if(indexj>=RADIX)
-        {
+        if(indexj>=RADIX){
             L[e[indexi]].next=0;
             break;
         }
-
         L[e[indexi]].next=f[indexj];
-
         indexi=indexj+1;
     }
 }
@@ -210,8 +171,7 @@ void RadixSort(SLList *L)
 {
     ArrType f,e;
     int keyNum=(*L).keyNum;
-    for(int index=0;index<keyNum;index++)
-    {
+    for(int index=0;index<keyNum;index++){
         Distribute((*L).r,RADIX-1-index,f,e);
         Collect((*L).r,RADIX-1-index,f,e);
     }
